@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">bemehiserProjectAshman</string>
+    <string name="action_about">About</string>
+    <string name="action_new_game">New Game</string>
+    <string name="cakes_left">"Cakes Left"</string>
+    <string name="level">Level</string>
+    <string name="instructional_prompt">To pause or continue, tap the game board</string>
+    <string name="end_story_01">The user had won the game</string>
+    <string name="end_story_02">Who was this user, you may ask?</string>
+    <string name="end_story_03">The user was you.</string>
+    <string name="end_story_04">Well done.</string>
+    <string name="level_two_warning">Prepare For Level Two</string>
+    <string name="new_game_prompt">Start a new game from the menu</string>
+</resources>

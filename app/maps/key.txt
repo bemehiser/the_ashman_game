@@ -1,0 +1,6 @@
+map key
+
+all maps will be 14x14 in size
+
+cake = 1
+solid = 0
