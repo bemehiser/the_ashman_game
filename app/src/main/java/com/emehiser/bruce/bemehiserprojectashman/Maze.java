@@ -334,29 +334,11 @@ public class Maze extends View implements View.OnLongClickListener, View.OnClick
             return false;
         }
 
-        // find if there is a solid block within the radius of the mover
-        float finalX = destinationX;
-        float finalY = destinationY;
-        switch (moverDirection) {
-            case Mover.UP:
-                finalY -= moverRadius;
-                break;
-            case Mover.DOWN:
-                finalY += moverRadius;
-                break;
-            case Mover.LEFT:
-                finalX -= moverRadius;
-                break;
-            case Mover.RIGHT:
-                finalX += moverRadius;
-                break;
-            // default, our mover is not moving, and we don't need to calculate because we haven't moved
-            default:
-                return true;
-        }
-        // get the block type at the final location
-        int destinationBlockType = getMazePos((int) finalX,(int) finalY);
-        if(destinationBlockType == SOLID_VAL) {
+        // see if ashman is trying to run over a wall
+        if(getMazePos((int) destinationX, (int) (destinationY - moverRadius))  == SOLID_VAL ||
+                getMazePos((int) destinationX, (int) (destinationY + moverRadius))  == SOLID_VAL ||
+                getMazePos((int) (destinationX - moverRadius), (int) destinationY)  == SOLID_VAL ||
+                getMazePos((int) (destinationX + moverRadius), (int) destinationY)  == SOLID_VAL) {
             return false;
         }
 
