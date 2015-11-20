@@ -326,22 +326,47 @@ public class Maze extends View implements View.OnLongClickListener, View.OnClick
             return false;
         }
 
-        // find if our mover center is inside a solid block
-        // get the maze block type at the destination location
-        int blockType = getMazePos((int) destinationX, (int) destinationY);
-        // if it our end position is solid, we can't moveMover there
-        if(blockType == SOLID_VAL) {
-            return false;
+        // coordinates of ashman's leading edge, given direction
+        float finalX = destinationX;
+        float finalY = destinationY;
+        // check left and right from ashman's leading edge
+        switch (moverDirection) {
+            case Mover.UP:
+                finalY -= moverRadius;
+                if(getMazePos((int) finalX,(int) finalY) == SOLID_VAL ||
+                        getMazePos((int) (finalX - moverRadius), (int) finalY)  == SOLID_VAL ||
+                        getMazePos((int) (finalX + moverRadius), (int) finalY)  == SOLID_VAL) {
+                    return false;
+                }
+                break;
+            case Mover.DOWN:
+                finalY += moverRadius;
+                if(getMazePos((int) finalX,(int) finalY) == SOLID_VAL ||
+                        getMazePos((int) (finalX - moverRadius), (int) finalY)  == SOLID_VAL ||
+                        getMazePos((int) (finalX + moverRadius), (int) finalY)  == SOLID_VAL) {
+                    return false;
+                }
+                break;
+            case Mover.LEFT:
+                finalX -= moverRadius;
+                if(getMazePos((int) finalX,(int) finalY) == SOLID_VAL ||
+                        getMazePos((int) finalX, (int) (finalY - moverRadius))  == SOLID_VAL ||
+                        getMazePos((int) finalX, (int) (finalY + moverRadius))  == SOLID_VAL) {
+                    return false;
+                }
+                break;
+            case Mover.RIGHT:
+                finalX += moverRadius;
+                if(getMazePos((int) finalX,(int) finalY) == SOLID_VAL ||
+                        getMazePos((int) finalX, (int) (finalY - moverRadius))  == SOLID_VAL ||
+                        getMazePos((int) finalX, (int) (finalY + moverRadius))  == SOLID_VAL) {
+                    return false;
+                }
+                break;
+            // default, our mover is not moving, and we don't need to calculate because we haven't moved
+            default:
+                return true;
         }
-
-        // see if ashman is trying to run over a wall
-        if(getMazePos((int) destinationX, (int) (destinationY - moverRadius))  == SOLID_VAL ||
-                getMazePos((int) destinationX, (int) (destinationY + moverRadius))  == SOLID_VAL ||
-                getMazePos((int) (destinationX - moverRadius), (int) destinationY)  == SOLID_VAL ||
-                getMazePos((int) (destinationX + moverRadius), (int) destinationY)  == SOLID_VAL) {
-            return false;
-        }
-
         // we are within the edges of the maze, and we are not touching a solid block
         return true;
     }
